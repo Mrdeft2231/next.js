@@ -1,17 +1,18 @@
 import Styles from './CardsList.module.css'
+import {PopularCardsFragment} from './PopularCardsFragment' 
+import { NewCardsFragment } from './NewCardsFragment'
 import { Card } from '../Card/Card';
-
-export const CardList = (props) => {  
+export const CardList = (props) => {
   return (
-    <section className={Styles["list-section"]}>
-    <h2 className={Styles["list-section__title"]} id={props.id}>
+    <section className={Styles['list-section']}>
+    <h2 className={Styles['list-section__title']} id={props.id}>
       {props.title}
     </h2>
     <ul className={Styles["cards-list"]}>
     {props.data.map((item)  => {
   return (
     <li className={Styles["card-list__item"]} key={item.id}>
-      <a href={item.link} target="_blank" className={Styles["card-list__link"]}>
+      <a href={item.link} target='_blank' className={Styles["card-list__link"]}>
         <Card {...item} />
       </a>
     </li>
@@ -19,5 +20,5 @@ export const CardList = (props) => {
   })}
   </ul>
   </section>
-  );
-};
+  )
+}
