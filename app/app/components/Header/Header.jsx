@@ -1,4 +1,18 @@
+import {Overlay} from '../Overlay/Overlay'
+import {AuthForm} from '../AuthForm/AuthForm'
+import {Popup} from '../Popup/Popup'
 import Styles from './Header.module.css'
+import { useState } from 'react'
+
+const [popupIsOpened, setPopupIsOpened] = React.useState(false);
+
+const openPopup = () => {
+  popupIsOpened(true)
+}
+
+const closePopup = () => {
+  popupIsOpened(false)
+}
 
 export const Header = () => {
   return (
@@ -44,9 +58,13 @@ export const Header = () => {
           </li>
         </ul>
         <div className={Styles['auth']}>
-          <button className={Styles['auth__button']}>Войти</button>
+          <button className={Styles['auth__button']} onClick={openPopup} >Войти</button>
         </div>
       </nav>
+      <Overlay />
+      <Popup>
+          <AuthForm />
+      </Popup>
     </header>
   )
 }
