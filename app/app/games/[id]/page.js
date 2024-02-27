@@ -1,5 +1,5 @@
 import Styles from "./Game.module.css";
-import { getGameId } from ".../data/data-utils";
+import { getGameId } from "@/app/data/data-utils";
 
 export default function GamePage(props) {
   const game = getGameId(props.params.id);
