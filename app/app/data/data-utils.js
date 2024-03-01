@@ -7,5 +7,5 @@ export const getGamesByCategory = (category) => {
   };
 
   export const getGameId = (id) => {
-    return data.find((game) => game.id === id);
+    return data.find((game) => game.id == id);
   }

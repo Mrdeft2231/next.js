@@ -4,7 +4,7 @@ import { getGameId } from "@/app/data/data-utils";
 
 export default function GamePage(props) {
   const game = getGameId(props.params.id);
-  return (
+  return game ? (
     <main className="main">
       <section className={Styles["game"]}>
         <iframe
@@ -30,11 +30,15 @@ export default function GamePage(props) {
             За игру уже проголосовали:
             <span className={Styles["about__accent"]}>{game.users.lenght}</span>
           </p>
-          <button onClick={() => {}}  className={`button ${Styles["about__vote-button"]}`}>
+          <button className={`button ${Styles["about__vote-button"]}`}>
             Голосовать
           </button>
         </div>
       </section>
     </main>
+  ) : (
+    <section className={Styles['game']}>
+    <p>Такой игры не существует 😢</p>
+</section>
   );
 }
