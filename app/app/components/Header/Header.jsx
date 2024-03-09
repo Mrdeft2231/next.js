@@ -21,6 +21,7 @@ const closePopup = () => {
   setPopupIsOpened(false)
 }
 
+
 const pathname = usePathname()
   return (
     <header className={Styles['header']}>
