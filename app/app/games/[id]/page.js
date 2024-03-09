@@ -1,6 +1,6 @@
 'use client'
 import Styles from "./Game.module.css";
-import { getNormalizedGameDataById } from "../../api/api-utils";
+import { getNormalizedGameDataById, isResposneOk } from "../../api/api-utils";
 import { endpoints } from "../../api/config";
 import { useState, useEffect } from "react";
 import { GameNotFound } from "@/app/components/GameNotFound/GameNotFound";
@@ -12,8 +12,8 @@ export default function GamePage(props) {
   useEffect(() => {
     async function fetchData() {
       const game = await getNormalizedGameDataById(endpoints.games, props.params.id);
+      isResposneOk(game) ? setGame(game) : setGame(null);
       setPreloaderVisible(false);
-       game.error ? setGame(null) : setGame(game);
     }
     fetchData();
   }, [])

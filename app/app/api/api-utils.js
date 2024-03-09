@@ -1,4 +1,4 @@
-import { data } from "../data/data";
+
 
 export const getData = async (url) => {
  try {
@@ -13,7 +13,7 @@ export const getData = async (url) => {
  }
 }
 
-export const isResposneOk = (data) => {
+export const isResposneOk = (response) => {
   return !(response instanceof Error);
 }
 
