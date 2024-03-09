@@ -1,9 +1,22 @@
+'use client'
 import Styles from "./Game.module.css";
-import { getGameId } from "@/app/data/data-utils";
-
+import { getNormalizedGameDataById } from "../../api/api-utils";
+import { endpoints } from "../../api/config";
+import { useState, useEffect } from "react";
+import { GameNotFound } from "@/app/components/GameNotFound/GameNotFound";
+import { Preloader } from "@/app/components/Preloader/Preloader";
 
 export default function GamePage(props) {
-  const game = getGameId(props.params.id);
+  const [game, setGame] = useState(null);
+  const [preloaderVisible, setPreloaderVisible] = useState(true);
+  useEffect(() => {
+    async function fetchData() {
+      const game = await getNormalizedGameDataById(endpoints.games, props.params.id);
+      setPreloaderVisible(false);
+       game.error ? setGame(null) : setGame(game);
+    }
+    fetchData();
+  }, [])
   return game ? (
     <main className="main">
       <section className={Styles["game"]}>
@@ -36,9 +49,9 @@ export default function GamePage(props) {
         </div>
       </section>
     </main>
+  ) : preloaderVisible ? (
+    <Preloader />
   ) : (
-    <section className={Styles['game']}>
-    <p>Такой игры не существует 😢</p>
-</section>
+    <GameNotFound />
   );
 }

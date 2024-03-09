@@ -1,7 +1,20 @@
+import { data } from "../data/data";
+
 export const getData = async (url) => {
+ try {
   const response = await fetch(url);
+  if (response.status !== 200) {
+    throw new Error("Ошибка получения данных");
+  }
   const data = await response.json();
-  return data
+  return data;
+ } catch (error) {
+   return error
+ }
+}
+
+export const isResposneOk = (data) => {
+  return !(response instanceof Error);
 }
 
 const normalizeDataObject = (obj) => {
@@ -14,16 +27,23 @@ const normalizeDataObject = (obj) => {
 
 export const normalizeData = (data) => {
   return data.map((item) => {
-    return normalizeDataObject(item)
-  })
+    return normalizeDataObject(item);
+  });
 }
 
 export const getNormalizedGameDataById = async (url, id) => {
   const data = await getData(`${url}/${id}`);
-  return normalizeDataObject(data)
+  return isResposneOk(data) ? normalizeDataObject(data) : data;
 }
 
 export const getNormalizedGamesDataByCategory = async (url, category) => {
-  const data = await getData(`${url}?category=${category}`);
-  return normalizeData(data)
+  try {
+    const data = await getData(`${url}?category.name=${category}`);
+    if (!data.length) {
+      throw new Error("Нет такой категории");
+    }
+    return isResposneOk(data) ? normalizeData(data) : data;
+  } catch (error) {
+    return error
+  }
 }
