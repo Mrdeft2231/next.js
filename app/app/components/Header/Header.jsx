@@ -11,10 +11,10 @@ import { usePathname } from 'next/navigation';
 
 export const Header = () => {
   const [popupIsOpened, setPopupIsOpened] = useState(false);
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
 const openPopup = () => {
   setPopupIsOpened(true)
-  console.log("да")
 }
 
 const closePopup = () => {
@@ -77,7 +77,7 @@ const pathname = usePathname()
       </nav>
       <Overlay  popupIsOpened={popupIsOpened} closePopup={closePopup} />
         <Popup popupIsOpened={popupIsOpened} closePopup={closePopup}>
-          <AuthForm />
+          <AuthForm close={closePopup} setAuth={setIsAuthorized} />
       </Popup>
     </header>
   )
