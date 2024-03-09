@@ -1,7 +1,7 @@
 
-import { endpoints } from '../api/config.js';
 import {CardList} from '../components/CardsList/CardList';
 import { getNormalizedGamesDataByCategory } from '../api/api-utils.js'
+import { endpoints } from '../api/config.js';
 
 
 export default async function Popular() {

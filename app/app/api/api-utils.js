@@ -38,7 +38,7 @@ export const getNormalizedGameDataById = async (url, id) => {
 
 export const getNormalizedGamesDataByCategory = async (url, category) => {
   try {
-    const data = await getData(`${url}?category.name=${category}`);
+    const data = await getData(`${url}?categories.name=${category}`);
     if (!data.length) {
       throw new Error("Нет такой категории");
     }
@@ -47,3 +47,12 @@ export const getNormalizedGamesDataByCategory = async (url, category) => {
     return error
   }
 }
+
+export const authorize = async (url, data) => {
+  try {
+  /* Код функции авторизации */
+} catch (error) {
+      /* Указываем, что в случае ошибки надо возвращать ошибку */
+  return error;
+}
+}; 
