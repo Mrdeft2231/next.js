@@ -5,9 +5,10 @@ import {AuthForm} from '../AuthForm/AuthForm'
 import {Popup} from '../Popup/Popup'
 import Styles from './Header.module.css'
 import Link from 'next/link';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation';
-
+import { endpoints } from '@/app/api/config'; 
+import { getJWT, removeJWT, setJWT, getMe, isResposneOk } from '@/app/api/api-utils';
 
 export const Header = () => {
   const [popupIsOpened, setPopupIsOpened] = useState(false);
@@ -23,6 +24,26 @@ const closePopup = () => {
 
 
 const pathname = usePathname()
+
+useEffect(() => {
+  const jwt = getJWT();
+  if (jwt) {
+    getMe(endpoints.me, jwt).then((userData) => {
+      if (isResposneOk(userData)) {
+        setIsAuthorized(true)
+      } else {
+        setIsAuthorized(false)
+        removeJWT();
+      }
+    })
+  }
+})
+
+const handleLogout = () => {
+  setIsAuthorized(false);
+  removeJWT();
+}
+
   return (
     <header className={Styles['header']}>
       <Link href="/" className={Styles['logo']}>
@@ -72,7 +93,13 @@ const pathname = usePathname()
           </li>
         </ul>
         <div className={Styles['auth']}>
-          <button className={Styles['auth__button']} onClick={openPopup} >Войти</button>
+          {isAuthorized ? (
+            <button className={Styles['auth__button']} onClick={handleLogout} >Выйти</button>
+          ) : (
+            <button className={Styles['auth__button']} onClick={openPopup} >Войти</button>
+          )
+           
+          }
         </div>
       </nav>
       <Overlay  popupIsOpened={popupIsOpened} closePopup={closePopup} />

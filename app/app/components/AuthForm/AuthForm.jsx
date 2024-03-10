@@ -1,10 +1,13 @@
 "use client";
 import Styles from './AuthForm.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { authorize, isResposneOk, getMe, setJWT } from '../../api/api-utils';
+import { endpoints } from '../../api/config';
 export const AuthForm = (props) => {
 const [authData, setAuthData] = useState({ identifier: "", password: "" });
 const [userData, setUserData] = useState(null);
-const [message, setMessage] = useState({ status: null, text: null }); 
+const [message, setMessage] = useState({ status: null, text: null });
+
 
 const handleInput = (e) => {
   // const newAuthData = authData;
@@ -19,9 +22,11 @@ e.preventDefault();
   /* Вызываем функцию authorize с данными из формы */
 const userData = await authorize(endpoints.auth, authData);
   /* Проверяем ответ сервера с помощью isResponseOk */
-if (isResponseOk(userData)) {
+if (isResposneOk(userData)) {
+  await getMe(endpoints.me, userData.jwt);
       /* Записываем в стейт данные пользователя с сервера */
   setUserData(userData);
+  setJWT(userData.jwt);
       /*  */
   props.setAuth(true);
       /* Записываем сообщение об авторизации */
@@ -32,6 +37,18 @@ if (isResponseOk(userData)) {
 }
 }; 
 
+useEffect(() => {
+  let timer;
+  if (userData) {
+    timer = setTimeout(() => {
+      props.close();
+    }, 1000)
+  }
+  return () => {
+    clearTimeout(timer);
+  }
+}, [userData])
+
 
 
   return (
@@ -40,11 +57,11 @@ if (isResponseOk(userData)) {
       <div className={Styles['form__fields']}>
         <label className={Styles['form__field']}>
           <span  className={Styles['form__field-title']}>Email</span>
-          <input onInput={handleInput} className={Styles['form__field-input']} type="email" placeholder="hello@world.com"/>
+          <input onInput={handleInput} className={Styles['form__field-input']} type="email" name='identifier' placeholder="hello@world.com"/>
         </label>
         <label className={Styles['form__field']}>
           <span className={Styles['form__field-title']}>Пароль</span>
-          <input onInput={handleInput} className={Styles['form__field-input']} type="password" placeholder='***********'/>
+          <input onInput={handleInput} className={Styles['form__field-input']} type="password" name='password' placeholder='***********'/>
         </label>
       </div>
       {message.status && (
