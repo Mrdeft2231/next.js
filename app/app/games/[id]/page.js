@@ -1,6 +1,6 @@
 'use client'
 import Styles from "./Game.module.css";
-import { getNormalizedGameDataById, isResposneOk, getMe, getJWT, removeJWT, checkIfUserVoted } from "../../api/api-utils";
+import { getNormalizedGameDataById, isResposneOk, getMe, getJWT, removeJWT, checkIfUserVoted, vote } from "../../api/api-utils";
 import { endpoints } from "../../api/config";
 import { useState, useEffect } from "react";
 import { GameNotFound } from "@/app/components/GameNotFound/GameNotFound";
@@ -92,8 +92,8 @@ export default function GamePage(props) {
         </div>
         <div className={Styles["about__vote"]}>
           <p className={Styles["about__vote-amount"]}>
-            За игру уже проголосовали:
-            <span className={Styles["about__accent"]}>{game.users.lenght}</span>
+            За игру уже проголосовали:{" "}
+            <span className={Styles["about__accent"]}>{game.users.length}</span>
           </p>
           <button
           disabled={!isAuthorized || isVoted}
