@@ -3,7 +3,8 @@ import { useGetDataByCategory } from "../api/api-hooks";
 import { Preloader } from "../components/Preloader/Preloader";
 import { getNormalizedGamesDataByCategory } from '../api/api-utils.js'
 import { endpoints } from '../api/config.js';
-import { CardList } from "../components/CardsList/CardList";
+import { CardList } from "../components/CardsListSection/CardList";
+import { CardsListSection } from "../components/CardsListSection/CardsListSection";
 
 
 export default function Shooters() {
@@ -11,7 +12,7 @@ export default function Shooters() {
   return (
     <main className="main" >
       {shooterGames ? (
-      <CardList id="shooters" title="шутеры" data={shooterGames}/>
+      <CardsListSection id="shooters" title="шутеры" data={shooterGames}/>
       ) : (
         <Preloader />
       )}

@@ -1,8 +1,9 @@
 'use client'
 import { useGetDataByCategory } from "../api/api-hooks";
 import { Preloader } from "../components/Preloader/Preloader";
-import {CardList} from '../components/CardsList/CardList';
+import {CardList} from '../components/CardsListSection/CardList';
 import { endpoints } from '../api/config.js';
+import { CardsListSection } from "../components/CardsListSection/CardsListSection";
 
 
 export default function Popular() {
@@ -10,7 +11,7 @@ export default function Popular() {
   return (
     <main className={"main-inner"}>
       {popularGames ? (
-      <CardList id="popular" title="Популярные" data={popularGames} />
+      <CardsListSection id="popular" title="Популярные" data={popularGames} />
       ) : (
         <Preloader />
       )}
