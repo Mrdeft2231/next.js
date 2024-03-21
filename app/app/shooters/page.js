@@ -3,7 +3,7 @@ import { useGetDataByCategory } from "../api/api-hooks";
 import { Preloader } from "../components/Preloader/Preloader";
 import { getNormalizedGamesDataByCategory } from '../api/api-utils.js'
 import { endpoints } from '../api/config.js';
-import { CardList } from "../components/CardsListSection/CardList";
+import { CardList } from "../components/CardList/CardList";
 import { CardsListSection } from "../components/CardsListSection/CardsListSection";
 
 

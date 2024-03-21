@@ -1,4 +1,4 @@
-import Styles from './CardsListSection.module.css'
+import Styles from './CardsList.module.css'
 import { Card } from '../Card/Card';
 import Link from 'next/link';
 

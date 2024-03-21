@@ -1,5 +1,5 @@
 import Styles from "./CardsListSection.module.css";
-import { CardList } from "./CardList";
+import { CardList } from "../CardList/CardList";
 import { CardsSlider } from "./CardsSlider";
 
 export const CardsListSection = (props) => {

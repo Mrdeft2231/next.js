@@ -2,7 +2,7 @@
 import { useGetDataByCategory } from "../api/api-hooks";
 import { Preloader } from "../components/Preloader/Preloader";
 import { endpoints } from '../api/config.js';
-import { CardList } from "../components/CardsListSection/CardList";
+import { CardList } from "../components/CardList/CardList";
 import { CardsListSection } from "../components/CardsListSection/CardsListSection";
 
 
