@@ -42,20 +42,6 @@ export default function GamePage(props) {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   const jwt = getJWT();
-  //   if (jwt) {
-  //     getMe(endpoints.me, jwt).then((userData) => {
-  //       if (isResposneOk(userData)) {
-  //         setIsAuthorized(true)
-  //         setCurrunetUser(userData)
-  //       } else {
-  //         setIsAuthorized(false)
-  //         removeJWT();
-  //       }
-  //     })
-  //   }
-  // })
 
   useEffect(() => { // Данные о пользователе получаем из контекста authContext.user
     authContext.user && game ? setIsVoted(checkIfUserVoted(game, authContext.user.id)) : setIsVoted(false);
